@@ -41,7 +41,7 @@ export default {
             const current=e.currentTarget.dataset.current;
             this.current=current;
             // const a=c
-            // console.log(e);
+            console.log(e);
             
         },
         chang(a){
