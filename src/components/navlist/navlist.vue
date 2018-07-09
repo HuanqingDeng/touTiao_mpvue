@@ -17,13 +17,11 @@
             <img src="./../../assets/personal2.png"/>
         </div>
     </div>
-    <addselec-nav ></addselec-nav>
 </div>
    
 </template>
 
 <script>
-import AddselecNav from '@/components/addselecNav/addselecNav'
 export default {
     data(){
         return{
@@ -33,7 +31,6 @@ export default {
         }
     },
     components:{
-        AddselecNav
     },
     methods:{
         changC(e){
