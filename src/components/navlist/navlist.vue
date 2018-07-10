@@ -4,7 +4,7 @@
         <!-- style="width:100%" -->
          <scroll-view class="navList" scroll-x >
             <view  v-for="(item,index ) in navlist" :key="index" class="list" ref="item.name" 
-             :data-current="index" @click="changC" >
+             :data-current="index" @click="changList" >
                 <div :class="current==index?'chose':'de'" @click="chang(item)">{{item.name}}</div>
             </view>
          </scroll-view>
@@ -33,16 +33,14 @@ export default {
     components:{
     },
     methods:{
-        changC(e){
+        changList(e){
             this.choose=!this.choose;   
             const current=e.currentTarget.dataset.current;
-            this.current=current;
-            // const a=c
-            console.log(e);
-            
+            this.current=current;    
         },
         chang(a){
-            console.log(a.id);
+            let ID=a.id;
+            this.$emit('getNavId',ID)
         },
         toAdd(){
             wx.redirectTo({
