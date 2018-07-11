@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div v-for="(item, index) in contentL" :key="index">
+        <div v-for="(item, index) in article" :key="index">
             <div v-if="item.id===navId" class="page">
                 <div class="contentlist" v-for="(itemm,vv) in item.content" :key="vv">
                     <div class="top">
@@ -22,20 +22,20 @@ export default {
     props:['navId'],
     data(){
         return{
-            contentL:this.NavList.contentList,
-            // article:[]
+            // contentL:this.NavList.contentList,
+            article:[]
         }
     },
-    // created() {
-    //  fly.get('Mpvue_toutiao_data#!method=get').then((res)=>{
-    //           const article = res.data.data.article;
-    //         //   console.log(article);
-    //         this.article=article;
-    //         console.log(this.article);
-    //         }).catch((e)=>{
-    //         console.log(e)
-    //         })
-    // }
+    created() {
+     fly.get('Mpvue_toutiao_data#!method=get').then((res)=>{
+              const article = res.data.data.article;
+            //   console.log(article);
+            this.article=article;
+            console.log(this.article);
+            }).catch((e)=>{
+            console.log(e)
+            })
+    }
     
 }
 </script>
