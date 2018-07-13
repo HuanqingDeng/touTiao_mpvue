@@ -4,8 +4,8 @@
         <!-- style="width:100%" -->
          <scroll-view class="navList" scroll-x >
             <view  v-for="(item,index ) in navlist" :key="index" class="list" ref="item.name" 
-             :data-current="index" @click="changList" >
-                <div :class="current==index?'chose':'de'" @click="chang(item)">{{item.name}}</div>
+              @click="changList" >
+                <div :class="swiperId==index?'chose':'de'" @click="change(item.ID)">{{item.name}}</div>
             </view>
          </scroll-view>
     </div>
@@ -27,7 +27,8 @@ export default {
         return{
             current:0,
             choose:false,
-            navlist:this.NavList.navlist
+            navlist:this.NavList.navlist,
+            swiperId:''
         }
     },
     components:{
@@ -38,17 +39,21 @@ export default {
             const current=e.currentTarget.dataset.current;
             this.current=current;    
         },
-        chang(a){
-            let ID=a.id;
-            this.$emit('getNavId',ID)
+        change(a){
+            //当前按钮ID值
+            let ID=a;
+            this.$emit('global:getNavId',ID);
         },
         toAdd(){
             wx.redirectTo({
                 url: './../../pages/addNav/main',
             })
-            
         }
     },
+    created(){
+        //兄弟间传递数据
+         this.$on('global:getTarget',id=>this.swiperId=id);
+    }
 }
 </script>
 

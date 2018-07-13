@@ -13,6 +13,7 @@
     "axios": "^0.18.0",
     "flyio": "^0.5.9",
     "mpvue": "^1.0.11",
+    "vue-event-proxy": "^1.0.3",
     "vue-router": "^3.0.1"
   },
   "devDependencies": {

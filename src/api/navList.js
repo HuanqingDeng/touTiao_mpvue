@@ -1,13 +1,13 @@
 
 const  navlist=[
-    {name:'推荐',id:'Recommend'},
-    {name:'视频',id:'video'},
-    {name:'热点',id:'hot'},
-    {name:'本地',id:'local'},
-    {name:'社会',id:'social'},
-    {name:'娱乐',id:'entertainment'},
-    {name:'科技',id:'science'},
-    {name:'军事',id:'military'}
+    {name:'推荐',id:'Recommend',ID:0},
+    {name:'视频',id:'video',ID:1},
+    {name:'热点',id:'hot',ID:2},
+    {name:'本地',id:'local',ID:3},
+    {name:'社会',id:'social',ID:4},
+    {name:'娱乐',id:'entertainment',ID:5},
+    {name:'科技',id:'science',ID:6},
+    {name:'军事',id:'military',ID:7}
 ]
 const hadlist=[
     {name:'国际',id:'international'},
@@ -19,36 +19,11 @@ const hadlist=[
     {name:'健康',id:'health'},
     {name:'旅游',id:'travel'}
 ]
-const contentList=[
-    {name:'推荐',id:'Recommend',
-    content:[
-        {
-            'title':'歼15在辽宁号航母上起降训练练宁号航母上起降训练',
-            'pageImg':"http://img0.imgtn.bdimg.com/it/u=2611468614,391729506&fm=27&gp=0.jpg",
-            'author':'中国军事网',
-            'time':'7-10 5:15',
-            'comment':'57评论'
-        },
-        {
-            'title':'歼15在辽宁号航母上起降训练宁号航母上起降训练',
-            'pageImg':"http://img5.imgtn.bdimg.com/it/u=2992708785,1786612812&fm=200&gp=0.jpg",
-            'author':'中国军事网',
-            'time':'7-10 5:15',
-            'comment':'57评论'
-        }
-    ]},
-    {name:'视频',id:'video'},
-    {name:'热点',id:'hot'},
-    {name:'本地',id:'local'},
-    {name:'社会',id:'social'},
-    {name:'娱乐',id:'entertainment'},
-    {name:'科技',id:'science'},
-    {name:'军事',id:'military'}
-]
+const swiperId=[];
 export default {
     navlist,
     hadlist,
-    contentList
+    swiperId
 }
 
 

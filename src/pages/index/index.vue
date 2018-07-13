@@ -1,11 +1,10 @@
 <template>
-<div>
+<div class="aoo">
   <div class="top">
     <search></search>
-    <nav-list @getNavId="navIdmsg"></nav-list>
+    <nav-list ></nav-list>
   </div>
-  <!-- 内容放置区 -->
-  <content-list :navId="navId"></content-list>
+    <content-list ></content-list>
 </div>
   
 </template>
@@ -17,7 +16,6 @@ import NavList from "@/components/navlist/navlist";
 export default {
   data(){
         return{
-          navId:''
         }
     },
   components: {
@@ -28,8 +26,7 @@ export default {
   methods:{
     navIdmsg(navId){
       this.navId=navId;
-      // console.log(this.navId);
-      
+      // console.log(navId); 
     }
   }
 };
