@@ -2,7 +2,7 @@
     <div class="page">
         <div class="avatar">
             <img src="./../../utils/imgs/avatar.png" alt=""/>
-            <text>用户12373465112</text>
+            <text>用户1237346511</text>
         </div>
        
         <div class="page__body">
