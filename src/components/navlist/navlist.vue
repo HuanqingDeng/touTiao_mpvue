@@ -14,7 +14,7 @@
             <img src="./../../assets/addNav.png" @click="toAdd" />
         </div>
         <div class="personal">
-            <img src="./../../assets/personal2.png"/>
+            <img src="./../../assets/personal2.png" @click="toUserPage"/>
         </div>
     </div>
 </div>
@@ -47,6 +47,11 @@ export default {
         toAdd(){
             wx.redirectTo({
                 url: './../../pages/addNav/main',
+            })
+        },
+        toUserPage(){
+            wx.navigateTo({
+                url: './../../pages/my/main'
             })
         }
     },

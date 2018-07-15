@@ -36,8 +36,8 @@
                             <div class="content">{{item.content}}</div>
                             <div class="time">{{item.time}}</div>
                             <div class="like" :class="likee?'yes':'no'">
-                                <!-- <img v-if="likee" src='./../../utils/imgs/like1.png' alt="" @click="like"/> -->
-                                <img  src='./../../utils/imgs/like.png' alt="" @click="like"/>
+                                <img v-if="likee" src='./../../utils/imgs/like1.png' alt="" @click="like"/>
+                                <img v-else src='./../../utils/imgs/like.png' alt="" @click="like"/>
                                 {{item.like}}
                             </div>
                         </div>
@@ -56,8 +56,8 @@
                     <span class="length">{{deta.commentDtail.length}}</span>
                 </div>
                 <div class="collect">
-                    <img src="./../../utils/imgs/collect1.png" alt="" class="collect">
-                    <!-- <img src="./../../utils/imgs/comment2.png" alt="" class="share"> -->
+                    <img v-if="collect" src="./../../utils/imgs/collect2.png" alt=""  @click="collected" />
+                    <img v-else src="./../../utils/imgs/collect1.png" alt=""  @click="collected"/>
                 </div>
                 <img src="./../../utils/imgs/share.png" alt="" class="share">
                 <img src="./../../utils/imgs/WXfriend.png" alt="">
@@ -75,7 +75,8 @@ export default {
             Red:'./../../utils/imgs/like.png',
             def:'./../../utils/imgs/like1.png',
             commentLength:'',
-            toView:''
+            toView:'',
+            collect:false
         }
     },
     methods:{
@@ -97,6 +98,9 @@ export default {
             this.toView='comment',
             console.log('hhhhh');
             
+        },
+        collected(){
+            this.collect=!this.collect
         }
     },
     created(){
