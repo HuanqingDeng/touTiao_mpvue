@@ -1,28 +1,67 @@
 <template>
     <div class="page">
-        <div class="title">中美贸易战双方已经正式开始互相加征关税</div>
-        <div class="page__body" v-for="(item,index) in deta" :key="index">
-            <div class="authMsg">
-                <div class="authImg">
-                    <img :src="item.writeImg" alt=""/>
+      <div class="page__head">
+        <div class="title">{{deta.title}}</div>
+        <div class="page__body">
+            <div v-for="(item,index) in deta.detail" :key="index" class="aa">
+                <div class="authMsg">
+                    <div class="authImg">
+                        <img :src="item.writeImg" alt=""/>
+                    </div>
+                    <div class="right">
+                        <div class="author">{{item.author}}</div>
+                        <div class="toutiaoHao">头条号</div>
+                        <div class="time">{{item.time}}</div>
+                    </div> 
                 </div>
-                <div class="right">
-                    <div class="author">{{item.author}}</div>
-                    <div class="toutiaoHao">头条号</div>
-                    <div class="time">{{item.time}}</div>
+                <div class="fontsize">
+                    <text class="text" @click="toUpSize">A+</text>
+                    <text class="text" @click="toLowSize">A-</text>
+                </div>
+                <div class="content" id="content">
+                    <div class="desc" :style="{fontSize:fontSize + 'px'}">
+                        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp{{item.desc}}
+                    </div>
+                </div>
+            </div>
+            <div class="comments">
+                <div class="hotCom">热门评论</div>
+                <div class="comList" v-for="(item,index) in deta.commentDtail" :key="index">
+                    <view class="comment">
+                        <div class="img">
+                            <img :src="item.img" alt=""/>
+                        </div>
+                        <div class="right">
+                            <div class="author">{{item.author}}</div>
+                            <div class="content">{{item.content}}</div>
+                            <div class="time">{{item.time}}</div>
+                            <div class="like" :class="likee?'yes':'no'">
+                                <!-- <img v-if="likee" src='./../../utils/imgs/like1.png' alt="" @click="like"/> -->
+                                <img  src='./../../utils/imgs/like.png' alt="" @click="like"/>
+                                {{item.like}}
+                            </div>
+                        </div>
+                    </view>
                 </div> 
-            </div>
-            <div class="fontsize">
-                <text class="text" @click="toUpSize">A+</text>
-                <text class="text" @click="toLowSize">A-</text>
-            </div>
-            <div class="content">
-                <div class="desc" :style="{fontSize:fontSize + 'px'}">
-                    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp{{item.desc}}
-                </div>
-            </div>
+            </div>  
         </div>
-        
+      </div>
+        <div class="page__footer">
+                <div class="toComent">
+                    <img src="./../../utils/imgs/writeCom.png" alt="">
+                    <input type="text" placeholder="写评论...">
+                 </div>
+                <div class="commentLength" @click="toview">
+                    <img src="./../../utils/imgs/comment.png" alt="">
+                    <span class="length">{{deta.commentDtail.length}}</span>
+                </div>
+                <div class="collect">
+                    <img src="./../../utils/imgs/collect1.png" alt="" class="collect">
+                    <!-- <img src="./../../utils/imgs/comment2.png" alt="" class="share"> -->
+                </div>
+                <img src="./../../utils/imgs/share.png" alt="" class="share">
+                <img src="./../../utils/imgs/WXfriend.png" alt="">
+            </div>
     </div>
 </template>
 
@@ -30,17 +69,13 @@
 export default {
     data(){
         return{
+            deta:[],
             fontSize:18,
-             deta: [
-              {
-                "title": "粮油中心：中国完全有能力应对美大豆进口减少缺口",
-                "writeImg": "https://p2.pstatp.com/large/1687/8327084584",
-                "author": "海外网",
-                "time": "07-11 05:49",
-                "writer": "文/小明",
-                "desc": "中美贸易战双方已经正式开始互相加征关税，这场美方主动寻衅发起的贸易战最初提出的涉案贸易额（500亿美元）就大幅度超越了全球贸易史上此前双边贸易争端涉案额的最高纪录，而且美方威胁还可能进一步成倍加码，甚至向中国对美全部出口额外加征关税。中国是连续多年的世界第一出口大国，如此大规模的贸易战对中国涉案出口、进口部门收入及就业必定会造成一定冲击，甚至是比较大的冲击。那么，中国究竟能否承受住这场冲击？特别是能否承受住中国对美全部出口均被额外加征关税的极端情况的冲击？对于这些问题，我们的答案是肯定的。这不仅是因为中国拥有巨大的国内市场兜底，而且也是因为我们能够在贸易战情况下保住相当一部分美国市场，并努力开拓新的海外市场"
-              }
-            ]
+            likee:false,
+            Red:'./../../utils/imgs/like.png',
+            def:'./../../utils/imgs/like1.png',
+            commentLength:'',
+            toView:''
         }
     },
     methods:{
@@ -52,74 +87,189 @@ export default {
         toLowSize(){
             if(this.fontSize>10)
             this.fontSize--
+        },
+        like(){
+            //点赞反选
+            this.likee=!this.likee
+            // console.log(this.deta.commentDtail.length);
+        },
+        toview(){
+            this.toView='comment',
+            console.log('hhhhh');
+            
         }
     },
     created(){
-        // this.$on('global:contentDetail',Detail=>this.deta=Detail);
-        // console.log(this.detail);
+        this.$on('global:contentDetail',Detail=>this.deta=Detail);
     }
 }
 </script>
 
 <style lang="stylus" scoped>
 .page
-    margin-top 40rpx
-    margin-left 30rpx
-    margin-right 30rp
-    .title
-        font-weight bolder
-        font-size 50rpx
-    .page__body
-        margin-top 50rpx
-        .authMsg
-            display inline-block
-            .authImg
-                float left
-                img 
-                    width 70rpx
-                    height 70rpx
-                    border-radius 50%
-            .right
-                width 160rpx
-                float left
-                font-size 22rpx
-                // background blue
-                margin-left 10rpx
-                margin-top 7rpx
-
-                .author
+    margin 0
+    padding 0
+    .page__head
+        margin-top 40rpx
+        margin-left 30rpx
+        margin-right 30rp
+        height auto
+        .title
+            font-weight bolder
+            font-size 50rpx
+        .page__body
+            // position fixed
+            top 100rpx
+            margin-top 50rpx
+            margin-right 30rpx
+            .authMsg
+                display inline-block
+                .authImg
                     float left
-                    font-size 28rpx
-                .toutiaoHao
+                    img 
+                        width 70rpx
+                        height 70rpx
+                        border-radius 50%
+                .right
+                    width 160rpx
                     float left
+                    font-size 22rpx
+                    // background blue
                     margin-left 10rpx
-                    margin-top 5rpx
-                    color #ffffff
-                    background red
-                    border-radius 5rpx
-                .time
-                    margin-top 10rpx
-                    float left
-                    color #8e8e8e
-        .fontsize
-            position absolute
-            display flex
-            right 35rpx
-            top 230rpx
-            .text
+                    margin-top 7rpx
+
+                    .author
+                        float left
+                        font-size 28rpx
+                    .toutiaoHao
+                        float left
+                        margin-left 10rpx
+                        margin-top 5rpx
+                        color #ffffff
+                        background red
+                        border-radius 5rpx
+                    .time
+                        margin-top 10rpx
+                        float left
+                        color #8e8e8e
+            .fontsize
+                position absolute
                 display flex
-                height 40rpx
-                width 65rpx
-                background #eaeaea
+                right 35rpx
+                top 230rpx
+                .text
+                    display flex
+                    height 40rpx
+                    width 65rpx
+                    background #eaeaea
+                    margin-left 10rpx
+                    border-radius 7rpx
+                    justify-content center
+                    align-items center
+                    font-size 25rpx
+            .content
+                display inline-block
+            .comments  
+                margin-top 70rpx
+                border-top 1rpx solid #8e8e8e
+                padding-top 60rpx
+                .hotCom
+                    border-left 1px solid red
+                    padding-left 10rpx
+                .comList
+                    width 100%
+                    margin-top 60rpx
+                    .comment
+                        img
+                            width 70rpx
+                            height 70rpx
+                            border-radius 50%
+                            float left
+                        .right
+                            position relative
+                            right -30rpx
+
+                            margin-left 15rpx
+                            width 600rpx
+                            // background blue
+                            margin-bottom 60rpx
+                            .author
+                                font-size 27rpx
+                                color blue
+                                display block
+                            .content
+                                font-size 32rpx
+                                margin-top 13rpx
+                                display block
+                            .time
+                                margin-top 13rpx
+                                color #8e8e8e
+                                margin-left 55rpx
+                                font-size 25rpx
+                            .like
+                                position absolute
+                                top 5rpx
+                                right 10rpx
+                                font-size 27rpx
+                                // color #8e8e8e
+                                img 
+                                    width 40rpx
+                                    height 40rpx
+                                    margin-left 10rpx
+                                    margin-top -5rpx
+                            .yes
+                                color red
+                            .no 
+                                color #8e8e8e
+
+    .page__footer
+        width 100%
+        position fixed
+        bottom 0
+        border-top 1rpx solid #8e8e8e
+        padding-top 20rpx
+        padding-bottom 20rpx
+        background #fff
+        img
+            width 50rpx
+            height 50rpx
+            margin-left 50rpx
+        .toComent
+            width 330rpx
+            height 50rp
+            float left
+            background #eaeaea
+            border-radius 45rpx
+            img 
+                width 30rpx
+                height 30rpx
+                margin-left 20rpx
+                margin-bottom 10rpx
+
+            input 
+                display inline-block
+                width 200rpx
+                height line-height
+                // background red
+                font-size 28rpx
+                margin-top 7rpx
                 margin-left 10rpx
-                border-radius 7rpx
-                justify-content center
-                align-items center
-                font-size 25rpx
-        .content
-            display inline-block
-            margin-right 25rpx
-            .desc
-                // font-size 18px
+        .commentLength
+            float left
+            position relative
+            span
+                position absolute
+                top -10rpx
+                right -16rpx
+                width 50rpx
+                background red
+                border-radius 15rpx
+                font-size 20rpx
+                text-align center
+                color #fff
+        .collect
+            float left
+        .share
+            float left
 
 </style>
