@@ -1,9 +1,9 @@
 <template>
-    <div class="page">
-      <div class="page__head">
+    <scroll-view scroll-y class="page" :style="{height: height +'px'}" :scroll-into-view="toView" >
+      <div class="page__head" id="A">
         <div class="title">{{deta.title}}</div>
-        <div class="page__body">
-            <div v-for="(item,index) in deta.detail" :key="index" class="aa">
+        <div class="page__body" >
+            <view v-for="(item,index) in deta.detail" :key="index" class="aa">
                 <div class="authMsg">
                     <div class="authImg">
                         <img :src="item.writeImg" alt=""/>
@@ -18,13 +18,13 @@
                     <text class="text" @click="toUpSize">A+</text>
                     <text class="text" @click="toLowSize">A-</text>
                 </div>
-                <div class="content" id="content">
+                <div class="content" id="content"  >
                     <div class="desc" :style="{fontSize:fontSize + 'px'}">
                         &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp{{item.desc}}
                     </div>
                 </div>
-            </div>
-            <div class="comments">
+            </view>
+            <view class="comments" id="B">
                 <div class="hotCom">热门评论</div>
                 <div class="comList" v-for="(item,index) in deta.commentDtail" :key="index">
                     <view class="comment">
@@ -35,15 +35,15 @@
                             <div class="author">{{item.author}}</div>
                             <div class="content">{{item.content}}</div>
                             <div class="time">{{item.time}}</div>
-                            <div class="like" :class="likee?'yes':'no'">
-                                <img v-if="likee" src='./../../utils/imgs/like1.png' alt="" @click="like"/>
-                                <img v-else src='./../../utils/imgs/like.png' alt="" @click="like"/>
+                            <div class="like" :class="likee==item.id?'yes':'no'" >
+                                <img v-if="likee==item.id" src='./../../utils/imgs/like1.png' alt="" @click="like(item)"/>
+                                <img v-else src='./../../utils/imgs/like.png' alt="" @click="like(item)"/>
                                 {{item.like}}
                             </div>
                         </div>
                     </view>
                 </div> 
-            </div>  
+            </view>  
         </div>
       </div>
         <div class="page__footer">
@@ -51,10 +51,10 @@
                     <img src="./../../utils/imgs/writeCom.png" alt="">
                     <input type="text" placeholder="写评论...">
                  </div>
-                <div class="commentLength" @click="toview">
-                    <img src="./../../utils/imgs/comment.png" alt="">
+                <view class="commentLength"  @click="ss">
+                    <img src="./../../utils/imgs/comment.png" alt=""/>
                     <span class="length">{{deta.commentDtail.length}}</span>
-                </div>
+                </view>
                 <div class="collect">
                     <img v-if="collect" src="./../../utils/imgs/collect2.png" alt=""  @click="collected" />
                     <img v-else src="./../../utils/imgs/collect1.png" alt=""  @click="collected"/>
@@ -62,7 +62,7 @@
                 <img src="./../../utils/imgs/share.png" alt="" class="share">
                 <img src="./../../utils/imgs/WXfriend.png" alt="">
             </div>
-    </div>
+    </scroll-view >
 </template>
 
 <script>
@@ -71,12 +71,14 @@ export default {
         return{
             deta:[],
             fontSize:18,
-            likee:false,
+            likee:'',
+            isLike:false,
             Red:'./../../utils/imgs/like.png',
             def:'./../../utils/imgs/like1.png',
             commentLength:'',
             toView:'',
-            collect:false
+            collect:false,
+            height:800
         }
     },
     methods:{
@@ -84,28 +86,43 @@ export default {
             if(this.fontSize<25){
               this.fontSize++  
             }
+            this.toView='A'
         },
         toLowSize(){
-            if(this.fontSize>10)
-            this.fontSize--
+            if(this.fontSize>10){
+               this.fontSize-- 
+            }
+            this.toView='A'
         },
-        like(){
+        like(item){
             //点赞反选
-            this.likee=!this.likee
-            // console.log(this.deta.commentDtail.length);
-        },
-        toview(){
-            this.toView='comment',
-            console.log('hhhhh');
+            // console.log(item);
+            // console.log(item.id);
             
+            this.likee=item.id;
+            // this.isLike=!this.isLike;
+            // console.log(this.deta.commentDtail.length);
         },
         collected(){
             this.collect=!this.collect
-        }
+        },
+        ss(){
+            // var query = wx.createSelectorQuery();
+            // //选择id
+            // query.select('.page').boundingClientRect()
+            // query.exec(function (res) {
+            // //res就是 所有标签为mjltest的元素的信息 的数组
+            // console.log(res[0].height);
+            // }) 
+                this.toView='B'            
+        },
     },
     created(){
         this.$on('global:contentDetail',Detail=>this.deta=Detail);
-    }
+    },
+    onShow: function () {
+        this.toView='';
+    },
 }
 </script>
 
@@ -275,5 +292,4 @@ export default {
             float left
         .share
             float left
-
 </style>
