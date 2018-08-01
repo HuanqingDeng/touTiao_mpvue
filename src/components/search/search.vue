@@ -1,12 +1,16 @@
 <template>
-    <div class="search">
+    <div class="search" @click="toSearch">
         <img src="./../../assets/search.png" class="searchImg"/>
     </div>
 </template>
 
 <script>
 export default {
-
+    methods:{
+        toSearch(){
+            wx.navigateTo({url: './../../pages/search/main'})
+        }
+    }
 }
 </script>
 
